@@ -1,5 +1,4 @@
-# FROM nikolaik/python-nodejs:latest
-FROM nikolaik/python-nodejs:python3.10-nodejs18-alpine
+FROM nikolaik/python-nodejs:latest
 
 COPY entrypoint.sh /app/entrypoint.sh
 
