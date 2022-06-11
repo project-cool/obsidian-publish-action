@@ -1,0 +1,7 @@
+name: "Publish obsidian blogs"
+description: "Publish obsidian blogs from repository"
+author: Sarthak Narayan, Abdur Rahman
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
