@@ -2,6 +2,21 @@ name: "Publish obsidian blogs"
 description: "Publish obsidian blogs from repository"
 author: Sarthak Narayan, Abdur Rahman
 
+inputs:
+  websiteId:
+    description: "Netlify website id"
+    required: true
+  log_level:
+    description: "Log level for the logger"
+    required: false
+  token:
+    description: "Netlify token"
+    required: false
+
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.websiteId }}
+    - ${{ inputs.log_level }}
+    - ${{ inputs.token }}
