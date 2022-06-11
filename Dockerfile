@@ -8,7 +8,7 @@ WORKDIR /app/code
 RUN git clone https://github.com/project-cool/obsidian-to-mkdocs .
 RUN npm install
 
-RUN apt update && apt -y install imagemagick
+RUN apt update && apt -y install imagemagick && apt -y install zip
 
 RUN pip3 install mkdocs-material
 
