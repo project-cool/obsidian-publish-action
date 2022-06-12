@@ -6,11 +6,20 @@ inputs:
   websiteId:
     description: "Netlify website id"
     required: true
+  token:
+    description: "Netlify token"
+    required: true
+  branch:
+    description: "Branch containing mkdocs.yml file at root"
+    required: false
   log_level:
     description: "Log level for the logger"
     required: false
-  token:
-    description: "Netlify token"
+  image_resolution:
+    description: "Image resolution to compress to (default 1920)"
+    required: false
+  compression_factor:
+    description: "Image compression factor (default 20)"
     required: false
 
 runs:
@@ -19,4 +28,7 @@ runs:
   args:
     - ${{ inputs.websiteId }}
     - ${{ inputs.log_level }}
+    - ${{ inputs.branch }}
     - ${{ inputs.token }}
+    - ${{ inputs.image_resolution }}
+    - ${{ inputs.compression_factor }}
