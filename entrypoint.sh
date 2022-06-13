@@ -3,7 +3,7 @@
 set -e
 
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [info]: $1"
+    echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] [info]: $1"
 }
 
 if [ -z $INPUT_LOG_LEVEL ]; then
@@ -65,5 +65,5 @@ log "Compressing Images..."
 log "Building Website..."
 /app/code/scripts/build.sh "/app/docs" "${suppressMkdocsLogs}"
 
-log "Compressing Images..."
+log "Uploading site to Netlify..."
 /app/code/scripts/upload.sh "/app/docs" "${INPUT_WEBSITEID}" "${INPUT_TOKEN}"
