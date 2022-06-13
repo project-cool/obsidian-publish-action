@@ -34,12 +34,20 @@ else
     branch=$INPUT_BRANCH
 fi
 
-log "Parameters:"
+if [ -z $INPUT_SUPPRESS_MKDOCS_LOGS ]; then
+    log "Suppress MkDocs Logs variable not provided, using default: true"
+    suppressMkdocsLogs="true"
+else 
+    suppressMkdocsLogs=$INPUT_SUPPRESS_MKDOCS_LOGS
+fi
+
+log "\nParameters:"
 log "Website ID: ${INPUT_WEBSITEID}"
 log "Log Level: ${logLevel}"
 log "Branch: ${branch}"
 log "Image Resolution: ${resolution}"
 log "Image Compression Factor: ${compressionFactor}"
+log "Suppress MkDocs Logs: ${suppressMkdocsLogs}\n"
 
 log "Cloning the docs repository: ${GITHUB_REPOSITORY}"
 git clone -b $branch "https://github.com/${GITHUB_REPOSITORY}" /app/docs
@@ -51,6 +59,11 @@ cd /app
 cp /app/docs/mkdocs.yml /app
 chmod +x /app/code/scripts/*
 
+log "Compressing Images..."
 /app/code/scripts/compress.sh "/app/docs" "${resolution}" "${compressionFactor}"
-/app/code/scripts/build.sh "/app/docs" > /dev/null
+
+log "Building Website..."
+/app/code/scripts/build.sh "/app/docs" "${suppressMkdocsLogs}"
+
+log "Compressing Images..."
 /app/code/scripts/upload.sh "/app/docs" "${INPUT_WEBSITEID}" "${INPUT_TOKEN}"

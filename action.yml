@@ -16,10 +16,13 @@ inputs:
     description: "Log level for the logger"
     required: false
   image_resolution:
-    description: "Image resolution to compress to (default 1920)"
+    description: "Image resolution to compress to (default: 1920)"
     required: false
   compression_factor:
-    description: "Image compression factor (default 20)"
+    description: "Image compression factor (default: 20)"
+    required: false
+  suppress_mkdocs_logs:
+    description: "Suppress MkDocs Logs (default: true)"
     required: false
 
 runs:
@@ -32,3 +35,4 @@ runs:
     - ${{ inputs.token }}
     - ${{ inputs.image_resolution }}
     - ${{ inputs.compression_factor }}
+    - ${{ inputs.suppress_mkdocs_logs }}
