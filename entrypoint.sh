@@ -81,5 +81,6 @@ log "Building Website..."
 log "Uploading site to Netlify..."
 /app/code/scripts/upload.sh "/app/docs" "${INPUT_WEBSITEID}" "${INPUT_TOKEN}"
 
+echo -e "\n"
 log "Extracting logs..."
 node /app/code/scripts/artifact.mjs
