@@ -3,7 +3,12 @@
 set -e
 
 log() {
-    echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] [info]: $1"
+    if [ -z $2 ]; then
+        logLevel="info"
+    else 
+        logLevel=$2
+    fi
+    echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] [$logLevel]: $1"
 }
 
 if [ -z $INPUT_LOG_LEVEL ]; then
@@ -55,8 +60,16 @@ git clone -b $branch "https://github.com/${GITHUB_REPOSITORY}" /app/docs
 cd /app/code
 npm run start "/app/docs" "${logLevel}"
 
+if [ -f "/app/docs/mkdocs.yml" ]; then
+    cp /app/docs/mkdocs.yml /app
+elif [ -f "/app/docs/mkdocs.yaml" ]; then
+    cp /app/docs/mkdocs.yaml /app
+else
+    log "mkdocs.yml or mkdocs.yaml does not exist in root of the repository" "error"
+    exit 1
+fi
+
 cd /app
-cp /app/docs/mkdocs.yml /app
 chmod +x /app/code/scripts/*
 
 log "Compressing Images..."
