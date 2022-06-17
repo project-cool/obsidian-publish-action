@@ -57,6 +57,7 @@ log "Suppress MkDocs Logs: ${suppressMkdocsLogs}\n"
 log "Cloning the docs repository: ${GITHUB_REPOSITORY}"
 git clone -b $branch "https://github.com/${GITHUB_REPOSITORY}" /app/docs
 
+log "Converting MD files..."
 cd /app/code
 npm run start "/app/docs" "${logLevel}"
 
@@ -75,12 +76,12 @@ chmod +x /app/code/scripts/*
 log "Compressing Images..."
 /app/code/scripts/compress.sh "/app/docs" "${resolution}" "${compressionFactor}"
 
+echo -e "\n"
+log "Uploading logs and MD files as artifacts..."
+node /app/code/scripts/artifact.mjs
+
 log "Building Website..."
 /app/code/scripts/build.sh "/app/docs" "${suppressMkdocsLogs}"
 
 log "Uploading site to Netlify..."
 /app/code/scripts/upload.sh "/app/docs" "${INPUT_WEBSITEID}" "${INPUT_TOKEN}"
-
-echo -e "\n"
-log "Extracting logs..."
-node /app/code/scripts/artifact.mjs
