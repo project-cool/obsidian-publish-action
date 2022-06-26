@@ -51,6 +51,16 @@ obsidian-vault
 │       │   mba.md
 ```
 
+5. Supported frontmatter format
+```yaml
+---
+updated: 2022-06-03
+hidden: true
+---
+```
+- If `hidden` is not mentioned, it is considered as `false` (by default, all the MD pages will be published online). If `hidden: true`, the corresponding MD file will be ignored.
+- `updated` is accepted as either `2022-06-03` or `2022-06-03T20:00:48+05:30`. This can by generated automatically for all the pages in Obsidian by using ***Update time on edit*** plugin.
+
 <details>
 <summary style="font-weight:bold;">Sample <code>mkdocs.yml</code> </summary>
 <p>
