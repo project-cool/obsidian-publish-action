@@ -85,5 +85,3 @@ log "Building Website..."
 
 log "Uploading site to Netlify..."
 /app/code/scripts/upload.sh "/app/docs" "${INPUT_WEBSITEID}" "${INPUT_TOKEN}"
-
-exit 1
